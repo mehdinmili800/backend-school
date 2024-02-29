@@ -5,11 +5,17 @@ import com.mehdi.project_school.dto.auth.AuthenticationRequest;
 import com.mehdi.project_school.dto.auth.RegisterRequest;
 import com.mehdi.project_school.dto.response.AuthenticationResponse;
 import com.mehdi.project_school.dto.response.UserResponseDTO;
+import com.mehdi.project_school.entity.Course;
+import com.mehdi.project_school.entity.group.Student;
+import com.mehdi.project_school.entity.group.Teacher;
 import com.mehdi.project_school.entity.user.Authority;
 import com.mehdi.project_school.entity.user.User;
 import com.mehdi.project_school.entity.user.UserRoleName;
 import com.mehdi.project_school.exception.CustomException;
+import com.mehdi.project_school.repository.ExamRepository;
 import com.mehdi.project_school.repository.user.AuthorityRepository;
+import com.mehdi.project_school.repository.user.StudentRepository;
+import com.mehdi.project_school.repository.user.TeacherRepository;
 import com.mehdi.project_school.repository.user.UserRepository;
 import com.mehdi.project_school.service.auth.AuthorityService;
 import com.mehdi.project_school.service.auth.UserService;
@@ -23,6 +29,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,6 +39,13 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private TeacherRepository teacherRepository;
+    @Autowired
+    private StudentRepository studentRepository;
+
+    @Autowired
+    private ExamRepository examRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -66,6 +80,43 @@ public class UserServiceImpl implements UserService {
     public List<User> findAll() {
         return userRepository.findAll();
     }
+
+    @Transactional
+    @Override
+    public String delete(Long user_id) {
+        User user = userRepository.getOne(user_id);
+
+        if (user != null) {
+            // Check if the user is a teacher
+            if (!user.getTeachers().isEmpty()) {
+                // User is a teacher, delete teacher-related data
+                Teacher teacher = user.getTeachers().get(0); // Assuming a user can have only one associated teacher
+
+                // Delete exams related to teacher's courses
+                for (Course course : teacher.getCourses()) {
+                    examRepository.deleteAllByCourse(course);
+                }
+
+                // Delete teacher-related data
+                teacherRepository.delete(teacher);
+                // Additional logic for deleting teacher-related data if needed
+            }
+
+            // Check if the user is a student
+            if (!user.getStudents().isEmpty()) {
+                // User is a student, delete student-related data
+                Student student = user.getStudents().get(0); // Assuming a user can have only one associated student
+                studentRepository.delete(student);
+                // Additional logic for deleting student-related data if needed
+            }
+
+            userRepository.delete(user);
+            return user_id.toString();
+        } else {
+            return "User not found";
+        }
+    }
+
 
 
 

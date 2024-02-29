@@ -1,14 +1,12 @@
 package com.mehdi.project_school.dto.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.time.LocalDate;
 
 public class StudentResponseDTO {
 
     private String username;
 
-    private LocalDate dateOfBirth;
+    private String dateOfBirth;
 
     private int start_year;
 
@@ -18,7 +16,7 @@ public class StudentResponseDTO {
 
     private String educationId;
 
-    private String healthCareId;
+    private String fullName;
 
     private String parent1Name;
 
@@ -28,26 +26,28 @@ public class StudentResponseDTO {
 
     private String parent2Phone;
 
-    @JsonProperty("classroom_id")
-    private Long classroom_id;
+//    @JsonProperty("classroom_id")
+//    private Long classroom_id;
 
     public StudentResponseDTO() {}
 
-    public StudentResponseDTO(String username, LocalDate dateOfBirth, int start_year, String address, String gender,
-                              String educationId, String healthCareId, String parent1Name, String parent2Name,
-                              String parent1Phone, String parent2Phone, Long classroom_id) {
+    public StudentResponseDTO(String username, String dateOfBirth, int start_year, String address, String gender,
+                              String educationId, String fullName, String parent1Name, String parent2Name,
+                              String parent1Phone, String parent2Phone
+//            , Long classroom_id
+    ) {
         this.username = username;
         this.dateOfBirth = dateOfBirth;
         this.start_year = start_year;
         this.address = address;
         this.gender = gender;
         this.educationId = educationId;
-        this.healthCareId = healthCareId;
+        this.fullName = fullName;
         this.parent1Name = parent1Name;
         this.parent2Name = parent2Name;
         this.parent1Phone = parent1Phone;
         this.parent2Phone = parent2Phone;
-        this.classroom_id = classroom_id;
+//        this.classroom_id = classroom_id;
     }
 
     public String getUsername() {
@@ -58,11 +58,11 @@ public class StudentResponseDTO {
         this.username = username;
     }
 
-    public LocalDate getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -98,12 +98,12 @@ public class StudentResponseDTO {
         this.educationId = educationId;
     }
 
-    public String getHealthCareId() {
-        return healthCareId;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setHealthCareId(String healthCareId) {
-        this.healthCareId = healthCareId;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getParent1Name() {
@@ -138,11 +138,11 @@ public class StudentResponseDTO {
         this.parent2Phone = parent2Phone;
     }
 
-    public Long getClassroom_id() {
-        return classroom_id;
-    }
-
-    public void setClassroom_id(Long classroom_id) {
-        this.classroom_id = classroom_id;
-    }
+//    public Long getClassroom_id() {
+//        return classroom_id;
+//    }
+//
+//    public void setClassroom_id(Long classroom_id) {
+//        this.classroom_id = classroom_id;
+//    }
 }

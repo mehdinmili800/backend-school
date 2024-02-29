@@ -71,7 +71,7 @@ public class Course {
      * Exams that written by students.
      */
     @JsonIgnore
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private List<Exam> exams = new ArrayList<>();
 
     /**

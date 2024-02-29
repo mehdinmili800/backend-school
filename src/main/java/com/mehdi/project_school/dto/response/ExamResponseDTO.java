@@ -6,7 +6,7 @@ public class ExamResponseDTO {
 
     private int mark;
 
-    private LocalDate written_at;
+    private String written_at;
 
 
 
@@ -17,7 +17,7 @@ public class ExamResponseDTO {
     public ExamResponseDTO() {
     }
 
-    public ExamResponseDTO(int mark, LocalDate written_at,Long course_id, Long student_id) {
+    public ExamResponseDTO(int mark, String written_at,Long course_id, Long student_id) {
         this.mark = mark;
         this.written_at = written_at;
         this.course_id = course_id;
@@ -32,11 +32,11 @@ public class ExamResponseDTO {
         this.mark = mark;
     }
 
-    public LocalDate getWritten_at() {
+    public String getWritten_at() {
         return written_at;
     }
 
-    public void setWritten_at(LocalDate written_at) {
+    public void setWritten_at(String written_at) {
         this.written_at = written_at;
     }
 

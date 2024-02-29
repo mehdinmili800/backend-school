@@ -30,7 +30,7 @@ public class Exam {
      * Time when exam written.
      */
     @Column(name = "written_at", nullable = false)
-    private LocalDate writtenAt;
+    private String writtenAt;
 
 
     /**
@@ -46,7 +46,7 @@ public class Exam {
      * @param course Course where student wrote the exam.
      * @param student Student who wrote the exam.
      */
-    public Exam(int mark, LocalDate writtenAt, Course course, Student student) {
+    public Exam(int mark, String writtenAt, Course course, Student student) {
         this.mark = mark;
         this.writtenAt = writtenAt;
         this.course = course;
@@ -83,11 +83,11 @@ public class Exam {
         this.mark = mark;
     }
 
-    public LocalDate getWrittenAt() {
+    public String getWrittenAt() {
         return writtenAt;
     }
 
-    public void setWrittenAt(LocalDate writtenAt) {
+    public void setWrittenAt(String writtenAt) {
         this.writtenAt = writtenAt;
     }
 

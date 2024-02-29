@@ -39,8 +39,8 @@ public class Student {
     /**
      * Student Date of Birth.
      */
-    @Column(name = "dob", nullable = false)
-    private LocalDate dateOfBirth;
+//    @Column(name = "dob", nullable = false)
+    private String dateOfBirth;
 
     /**
      * Gender.
@@ -52,43 +52,43 @@ public class Student {
     /**
      * Year when student started.
      */
-    @Column(name = "start_year", nullable = false)
+//    @Column(name = "start_year", nullable = false)
     private int start_year;
 
     /**
      * Student address.
      */
-    @Column(name = "address", nullable = false)
+//    @Column(name = "address", nullable = false)
     private String address;
 
     /**
      * Student education id.
      */
-    @Column(name = "educationId", nullable = false, length = 11)
+//    @Column(name = "educationId", nullable = false, length = 11)
     private String educationId;
 
     /**
      * Student healthcare id.
      */
-    @Column(name = "healthCareId", length = 16)
-    private String healthCareId;
+//    @Column(name = "healthCareId", length = 16)
+    private String fullName;
 
     /**
      * Student "first" parent name.
      */
-    @Column(name = "parent1Name", length = 32)
+//    @Column(name = "parent1Name", length = 32)
     private String parent1Name;
 
     /**
      * Student "second" parent name.
      */
-    @Column(name = "parent2Name", length = 32)
+//    @Column(name = "parent2Name", length = 32)
     private String parent2Name;
 
     /**
      * Student "first" parent phone number.
      */
-    @Column(name = "parent1Phone", length = 24)
+//    @Column(name = "parent1Phone", length = 24)
     private String parent1Phone;
 
     /**
@@ -113,28 +113,30 @@ public class Student {
      * @param address Student address.
      * @param gender Gender.
      * @param educationId Student education id.
-     * @param healthCareId Student healthcare id.
+     * @param fullName Student healthcare id.
      * @param parent1Name Student "first" parent name.
      * @param parent2Name Student "second" parent name.
      * @param parent1Phone Student "first" parent phone number.
      * @param parent2Phone Student "second" parent phone number.
-     * @param classroom Class where student learn.
+//     * @param classroom Class where student learn.
      */
-    public Student(User student, LocalDate dateOfBirth, int start_year, String address, Gender gender,
-                   String educationId, String healthCareId, String parent1Name,
-                   String parent2Name, String parent1Phone, String parent2Phone, Classroom classroom) {
+    public Student(User student, String dateOfBirth, int start_year, String address, Gender gender,
+                   String educationId, String fullName, String parent1Name,
+                   String parent2Name, String parent1Phone, String parent2Phone
+//            , Classroom classroom
+    ) {
         this.student = student;
         this.dateOfBirth = dateOfBirth;
         this.start_year = start_year;
         this.address = address;
         this.gender = gender;
         this.educationId = educationId;
-        this.healthCareId = healthCareId;
+        this.fullName = fullName;
         this.parent1Name = parent1Name;
         this.parent2Name = parent2Name;
         this.parent1Phone = parent1Phone;
         this.parent2Phone = parent2Phone;
-        this.classroom = classroom;
+//        this.classroom = classroom;
     }
 
     /**
@@ -162,7 +164,7 @@ public class Student {
      * Student exams. (Only the current year exams.)
      */
     @JsonIgnore
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE)
     private List<Exam> exams  = new ArrayList<>();
 
     /**
@@ -175,10 +177,10 @@ public class Student {
     /**
      * Class where student learn.
      */
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne
-    @JoinColumn(name="classroom_id")
-    private Classroom classroom;
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//    @ManyToOne
+//    @JoinColumn(name="classroom_id")
+//    private Classroom classroom;
 
     public Long getId() {
         return id;
@@ -196,11 +198,11 @@ public class Student {
         this.student = student;
     }
 
-    public LocalDate getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -236,12 +238,12 @@ public class Student {
         this.educationId = educationId;
     }
 
-    public String getHealthCareId() {
-        return healthCareId;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setHealthCareId(String healthCareId) {
-        this.healthCareId = healthCareId;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getParent1Name() {
@@ -308,11 +310,11 @@ public class Student {
         this.attendances = attendances;
     }
 
-    public Classroom getClassroom() {
-        return classroom;
-    }
-
-    public void setClassroom(Classroom classroom) {
-        this.classroom = classroom;
-    }
+//    public Classroom getClassroom() {
+//        return classroom;
+//    }
+//
+//    public void setClassroom(Classroom classroom) {
+//        this.classroom = classroom;
+//    }
 }

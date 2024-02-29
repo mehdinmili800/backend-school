@@ -14,4 +14,8 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
     @Query(value = "SELECT teacher_id FROM teachers WHERE :teacher_id = id LIMIT 1", nativeQuery = true)
     @Transactional
     Long GetUserIdByTeacherId(@Param("teacher_id") Long teacher_id);
+
+
+    @Transactional
+    void deleteById(Long id);
 }

@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -46,6 +47,10 @@ public class User implements UserDetails {
      */
     @Column(name = "fullName", nullable = false, length = 32)
     private String fullName;
+
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<TokenEntity> tokens;
 
     /**
      * Empty constructor.

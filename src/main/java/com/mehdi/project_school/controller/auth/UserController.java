@@ -31,16 +31,18 @@ public class UserController {
         return new ResponseEntity<User>(user, HttpStatus.CREATED);
     }
 
-
-
-
-
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/user/all")
     public ResponseEntity<List<User>> getAllUsers() {
 
         List<User> users = userService.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping(value = "/user/{id}")
+    public String delete(@PathVariable Long id){
+        return userService.delete(id);
     }
 
 

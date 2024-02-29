@@ -68,7 +68,7 @@ public class Teacher {
      * Courses that the teacher teaching.
      */
     @JsonIgnore
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(mappedBy = "teacher",cascade = CascadeType.ALL)
     private List<Course> courses = new ArrayList<>();
 
     public Long getId() {

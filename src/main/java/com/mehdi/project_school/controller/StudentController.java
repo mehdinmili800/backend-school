@@ -8,11 +8,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -21,13 +20,25 @@ public class StudentController {
     @Autowired
     private StudentServiceImpl studentService;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')or hasRole('ROLE_STUDENT')")
     @PostMapping(value = "/students/create")
-    public ResponseEntity<?> create(@RequestBody StudentResponseDTO studentResponseDTO,
-                                    UriComponentsBuilder uriComponentsBuilder){
-        Student student = studentService.create(studentResponseDTO);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(uriComponentsBuilder.path("/api/user/{userId}").buildAndExpand(student.getId()).toUri());
-        return new ResponseEntity<Student>(student, HttpStatus.CREATED);
+    public Student create(@RequestBody StudentResponseDTO studentResponseDTO){
+        return studentService.create(studentResponseDTO);
     }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_TEACHER') or hasRole('ROLE_HEADTEACHER')")
+    @GetMapping(value = "/students/all")
+    public List<Student> findAll(){
+        return studentService.findAll();
+    }
+
+    @GetMapping(value = "/students/{id}")
+    public Student findById(@PathVariable Long id) {
+        return studentService.findById(id);
+    }
+
+
+
+
+
 }

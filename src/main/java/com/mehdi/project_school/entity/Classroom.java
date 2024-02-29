@@ -79,9 +79,9 @@ public class Classroom {
     /**
      * Students who are taught together at school.
      */
-    @JsonIgnore
-    @OneToMany(mappedBy = "classroom")
-    private List<Student> students = new ArrayList<>();
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "classroom")
+//    private List<Student> students = new ArrayList<>();
 
     /**
      * Classroom Timetable.
@@ -138,13 +138,13 @@ public class Classroom {
         this.headTeacher = headTeacher;
     }
 
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
+//    public List<Student> getStudents() {
+//        return students;
+//    }
+//
+//    public void setStudents(List<Student> students) {
+//        this.students = students;
+//    }
 
     public List<TimeTableEntity> getTimeTableEntities() {
         return timeTableEntities;
